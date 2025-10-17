@@ -69,9 +69,10 @@ app.get('/', (req, res) => {
 // TEMPORARY SEEDING ROUTE (DELETE AFTER SUCCESSFUL USE!)
 app.get("/seed-data", async (req, res) => {
     try {
-        // Correct path: Go up one level from 'backend' to find the SQL files in the project root
-        const schemaPath = path.join(__dirname, '..', 'db_schema.sql');
-        const dataPath = path.join(__dirname, '..', 'db_data.sql');
+        // --- FINAL FIX: Use simple relative paths for files in the project root
+        // The Node process often runs from the root of the repository in Railway.
+        const schemaPath = 'db_schema.sql'; 
+        const dataPath = 'db_data.sql'; 
 
         // 1. Read and execute the Schema script (db_schema.sql)
         const schemaSQL = fs.readFileSync(schemaPath, 'utf8');
@@ -88,7 +89,7 @@ app.get("/seed-data", async (req, res) => {
         res.status(500).send(`Seeding Failed: ${err.message}`);
     }
 });
-
+// .
 
 // ✅ Countries
 app.get("/countries", async (req, res) => {
