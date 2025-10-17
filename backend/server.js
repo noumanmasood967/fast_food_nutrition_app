@@ -160,10 +160,14 @@ app.delete("/items/:id", async (req, res) => {
 
 // === START SERVER ===
 const PORT = process.env.PORT || 3000;
+// Set HOST to 0.0.0.0 to listen on all public interfaces
+const HOST = '0.0.0.0'; 
+
 const startServer = async () => {
   await testConnection();
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  // Pass both PORT and HOST to app.listen()
+  app.listen(PORT, HOST, () => {
+    console.log(`🚀 Server running at http://${HOST}:${PORT}`);
   });
 };
 
