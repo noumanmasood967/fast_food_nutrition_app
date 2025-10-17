@@ -68,10 +68,7 @@ const handleDatabaseError = (res, err, operation) => {
 // ------------------------------------------------------------------
 // --- CRITICAL CORRECTION 2: Add Root Route to serve main HTML file
 // This fixes the "Cannot GET /" error
-app.get('/', (req, res) => {
-    // Assuming 'hello.html' is your main entry point file
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'hello.html'));
-});
+
 // ------------------------------------------------------------------
 
 
