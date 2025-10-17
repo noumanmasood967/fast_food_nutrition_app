@@ -1,3 +1,4 @@
+// === IMPORT DEPENDENCIES ===
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -6,22 +7,27 @@ import path from "path";
 import mysql from "mysql2/promise";
 import { fileURLToPath } from "url";
 
+// === LOAD ENVIRONMENT VARIABLES ===
 dotenv.config();
 
+// === HANDLE __dirname IN ES MODULES ===
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// === INITIALIZE EXPRESS APP ===
 const app = express();
+
+// === APPLY CORS FIRST (IMPORTANT) ===
 app.use(cors());
+
+// === OTHER MIDDLEWARE ===
 app.use(bodyParser.json());
+// ------------------------------------------------------------------
+// --- CRITICAL CORRECTION 1: Serve files from the 'frontend' folder
+// path.join(__dirname, '..', 'frontend') goes from /backend to /frontend
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
+// ------------------------------------------------------------------
 
-// ✅ Serve frontend static files
-app.use(express.static(path.join(__dirname, "..", "frontend")));
-
-// ✅ Root route (fixes "Cannot GET /")
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
-});
 
 // === DATABASE CONFIGURATION ===
 const db = mysql.createPool({
