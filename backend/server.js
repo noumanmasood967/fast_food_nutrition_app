@@ -27,7 +27,12 @@ app.use(cors({
 
 // === OTHER MIDDLEWARE ===
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public")));
+// ------------------------------------------------------------------
+// --- CRITICAL CORRECTION 1: Serve files from the 'frontend' folder
+// path.join(__dirname, '..', 'frontend') goes from /backend to /frontend
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
+// ------------------------------------------------------------------
+
 
 // === DATABASE CONFIGURATION ===
 const db = mysql.createPool({
@@ -60,6 +65,16 @@ const handleDatabaseError = (res, err, operation) => {
 
 // === ROUTES ===
 
+// ------------------------------------------------------------------
+// --- CRITICAL CORRECTION 2: Add Root Route to serve main HTML file
+// This fixes the "Cannot GET /" error
+app.get('/', (req, res) => {
+    // Assuming 'hello.html' is your main entry point file
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'hello.html'));
+});
+// ------------------------------------------------------------------
+
+
 // ✅ Countries
 app.get("/countries", async (req, res) => {
   try {
@@ -78,9 +93,9 @@ app.get("/branches", async (req, res) => {
   try {
     const [rows] = await db.query(
       `SELECT b.id, b.name 
-       FROM branches b
-       JOIN branch_locations bl ON bl.branch_id = b.id
-       WHERE bl.country_id = ?`,
+        FROM branches b
+        JOIN branch_locations bl ON bl.branch_id = b.id
+        WHERE bl.country_id = ?`,
       [countryId]
     );
     res.json(rows);
@@ -98,10 +113,10 @@ app.get("/items", async (req, res) => {
   try {
     const [rows] = await db.query(
       `SELECT fi.id, fi.name, fi.serving_size, fi.calories, fi.total_fat, fi.saturated_fat,
-              fi.trans_fat, fi.cholesterol, fi.sodium, fi.carbohydrates, fi.sugars, fi.protein
-       FROM food_items fi
-       JOIN branch_locations bl ON fi.branch_location_id = bl.id
-       WHERE bl.country_id = ? AND bl.branch_id = ?`,
+             fi.trans_fat, fi.cholesterol, fi.sodium, fi.carbohydrates, fi.sugars, fi.protein
+        FROM food_items fi
+        JOIN branch_locations bl ON fi.branch_location_id = bl.id
+        WHERE bl.country_id = ? AND bl.branch_id = ?`,
       [country_id, branch_id]
     );
     res.json(rows);
@@ -171,4 +186,4 @@ const startServer = async () => {
   });
 };
 
-startServer();
+startServer()
