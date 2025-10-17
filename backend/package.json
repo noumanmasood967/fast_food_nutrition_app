@@ -13,13 +13,13 @@
     "@noble/secp256k1": "^2.1.0",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
+    "dotenv": "^16.6.1",
     "ethereum-cryptography": "^3.0.0",
     "ethers": "^6.13.4",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
-    "mysql2": "^3.13.0",
+    "pg": "^8.16.3",
     "secp256k1": "^5.0.1"
   },
   "devDependencies": {
