@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import path from "path";
 import mysql from "mysql2/promise";
 import { fileURLToPath } from "url";
+import fs from "fs"; // <-- Added the required fs module import
 
 // === LOAD ENVIRONMENT VARIABLES ===
 dotenv.config();
@@ -22,11 +23,8 @@ app.use(cors());
 
 // === OTHER MIDDLEWARE ===
 app.use(bodyParser.json());
-// ------------------------------------------------------------------
-// --- CRITICAL CORRECTION 1: Serve files from the 'frontend' folder
-// path.join(__dirname, '..', 'frontend') goes from /backend to /frontend
+// Serve files from the 'frontend' folder
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
-// ------------------------------------------------------------------
 
 
 // === DATABASE CONFIGURATION ===
@@ -60,12 +58,12 @@ const handleDatabaseError = (res, err, operation) => {
 
 // === ROUTES ===
 
-// ------------------------------------------------------------------
-// --- CRITICAL CORRECTION 2: Add Root Route to serve main HTML file
-// This fixes the "Cannot GET /" error
+// Root Route: Serves index.html (Assuming you renamed hello.html to index.html)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html')); 
+});
 
-// ------------------------------------------------------------------
-// Add this temporary route near the end of your ROUTES section
+// TEMPORARY SEEDING ROUTE (DELETE AFTER USE!)
 app.get("/seed-data", async (req, res) => {
     try {
         // 1. Read and execute the Schema script (db_schema.sql)
@@ -85,8 +83,7 @@ app.get("/seed-data", async (req, res) => {
         res.status(500).send(`Seeding Failed: ${err.message}`);
     }
 });
-// You also need to import the 'fs' module at the top:
-// import fs from "fs"; // <-- ADD THIS LINE to the top of server.js
+
 
 // ✅ Countries
 app.get("/countries", async (req, res) => {
