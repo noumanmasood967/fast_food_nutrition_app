@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 import path from "path";
 import mysql from "mysql2/promise";
 import { fileURLToPath } from "url";
-import fs from "fs"; // <-- FIX: fs module is now correctly imported
+// Removed: import fs from "fs"; // <-- No longer needed after removing seeding route
 
 // === LOAD ENVIRONMENT VARIABLES ===
 dotenv.config();
@@ -19,11 +19,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // === APPLY CORS FIRST (IMPORTANT) ===
-// Use default CORS to avoid deployment security errors
+// Use default CORS to allow connections from the client/browser
 app.use(cors());
 
 // === OTHER MIDDLEWARE ===
 app.use(bodyParser.json());
+
 // Serve static files from the 'frontend' folder, which is one level up from 'backend'
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
@@ -47,7 +48,9 @@ const testConnection = async () => {
     conn.release();
   } catch (err) {
     console.error("❌ Database Connection Error:", err.message);
-    // Do not process.exit(1) here, allow server to run for seeding
+    // CRITICAL: Exit if DB connection fails on startup.
+    // If running on Render, this forces a restart attempt.
+    process.exit(1); 
   }
 };
 
@@ -59,37 +62,18 @@ const handleDatabaseError = (res, err, operation) => {
 
 // === ROUTES ===
 
-// Root Route: Serves index.html (Assumes you renamed hello.html to index.html)
+// Root Route: Serves index.html
+// This handles the main page load for the single-page application
 app.get('/', (req, res) => {
-    // __dirname is '/app/backend', so '..' finds the root, then 'frontend/index.html'
     res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html')); 
 });
 
+// ------------------------------------------------------------------
+// TEMPORARY SEEDING ROUTE HAS BEEN REMOVED FOR CLEANLINESS AND SECURITY.
+// Data seeding must be done manually via a database client (Workbench, DBeaver) 
+// or the hosting platform's CLI before deployment.
+// ------------------------------------------------------------------
 
-// TEMPORARY SEEDING ROUTE (DELETE AFTER SUCCESSFUL USE!)
-app.get("/seed-data", async (req, res) => {
-    try {
-        // --- FINAL FIX: Use simple relative paths for files in the project root
-        // The Node process often runs from the root of the repository in Railway.
-        const schemaPath = 'db_schema.sql'; 
-        const dataPath = 'db_data.sql'; 
-
-        // 1. Read and execute the Schema script (db_schema.sql)
-        const schemaSQL = fs.readFileSync(schemaPath, 'utf8');
-        await db.query(schemaSQL);
-
-        // 2. Read and execute the Data script (db_data.sql)
-        const dataSQL = fs.readFileSync(dataPath, 'utf8');
-        await db.query(dataSQL);
-        
-        // 3. Success message
-        res.status(200).send("Database successfully seeded with schema and data. NOW DELETE THIS ROUTE!");
-    } catch (err) {
-        console.error("Database Seeding Error:", err);
-        res.status(500).send(`Seeding Failed: ${err.message}`);
-    }
-});
-// .
 
 // ✅ Countries
 app.get("/countries", async (req, res) => {
@@ -195,7 +179,9 @@ const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0'; 
 
 const startServer = async () => {
-  await testConnection();
+  // Test connection before starting server
+  await testConnection(); 
+  
   // Pass both PORT and HOST to app.listen()
   app.listen(PORT, HOST, () => {
     console.log(`🚀 Server running at http://${HOST}:${PORT}`);
