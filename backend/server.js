@@ -65,7 +65,28 @@ const handleDatabaseError = (res, err, operation) => {
 // This fixes the "Cannot GET /" error
 
 // ------------------------------------------------------------------
+// Add this temporary route near the end of your ROUTES section
+app.get("/seed-data", async (req, res) => {
+    try {
+        // 1. Read and execute the Schema script (db_schema.sql)
+        const schemaPath = path.join(__dirname, '..', 'db_schema.sql');
+        const schemaSQL = fs.readFileSync(schemaPath, 'utf8');
+        await db.query(schemaSQL);
 
+        // 2. Read and execute the Data script (db_data.sql)
+        const dataPath = path.join(__dirname, '..', 'db_data.sql');
+        const dataSQL = fs.readFileSync(dataPath, 'utf8');
+        await db.query(dataSQL);
+        
+        // 3. Success message
+        res.status(200).send("Database successfully seeded with schema and data. NOW DELETE THIS ROUTE!");
+    } catch (err) {
+        console.error("Database Seeding Error:", err);
+        res.status(500).send(`Seeding Failed: ${err.message}`);
+    }
+});
+// You also need to import the 'fs' module at the top:
+// import fs from "fs"; // <-- ADD THIS LINE to the top of server.js
 
 // ✅ Countries
 app.get("/countries", async (req, res) => {
