@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 import path from "path";
 import mysql from "mysql2/promise";
 import { fileURLToPath } from "url";
-import fs from "fs"; // <-- Added the required fs module import
+import fs from "fs"; // <-- FIX: fs module is now correctly imported
 
 // === LOAD ENVIRONMENT VARIABLES ===
 dotenv.config();
@@ -19,11 +19,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // === APPLY CORS FIRST (IMPORTANT) ===
+// Use default CORS to avoid deployment security errors
 app.use(cors());
 
 // === OTHER MIDDLEWARE ===
 app.use(bodyParser.json());
-// Serve files from the 'frontend' folder
+// Serve static files from the 'frontend' folder, which is one level up from 'backend'
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 
@@ -46,7 +47,7 @@ const testConnection = async () => {
     conn.release();
   } catch (err) {
     console.error("❌ Database Connection Error:", err.message);
-    process.exit(1);
+    // Do not process.exit(1) here, allow server to run for seeding
   }
 };
 
@@ -58,21 +59,25 @@ const handleDatabaseError = (res, err, operation) => {
 
 // === ROUTES ===
 
-// Root Route: Serves index.html (Assuming you renamed hello.html to index.html)
+// Root Route: Serves index.html (Assumes you renamed hello.html to index.html)
 app.get('/', (req, res) => {
+    // __dirname is '/app/backend', so '..' finds the root, then 'frontend/index.html'
     res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html')); 
 });
 
-// TEMPORARY SEEDING ROUTE (DELETE AFTER USE!)
+
+// TEMPORARY SEEDING ROUTE (DELETE AFTER SUCCESSFUL USE!)
 app.get("/seed-data", async (req, res) => {
     try {
-        // 1. Read and execute the Schema script (db_schema.sql)
+        // Correct path: Go up one level from 'backend' to find the SQL files in the project root
         const schemaPath = path.join(__dirname, '..', 'db_schema.sql');
+        const dataPath = path.join(__dirname, '..', 'db_data.sql');
+
+        // 1. Read and execute the Schema script (db_schema.sql)
         const schemaSQL = fs.readFileSync(schemaPath, 'utf8');
         await db.query(schemaSQL);
 
         // 2. Read and execute the Data script (db_data.sql)
-        const dataPath = path.join(__dirname, '..', 'db_data.sql');
         const dataSQL = fs.readFileSync(dataPath, 'utf8');
         await db.query(dataSQL);
         
