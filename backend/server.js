@@ -58,9 +58,6 @@ const handleDatabaseError = (res, err, operation) => {
 // === ROUTES (All routes now use the /api prefix) ===
 
 // Root Route: Serves index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html')); 
-});
 
 
 // ✅ Countries
