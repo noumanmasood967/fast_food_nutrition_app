@@ -23,17 +23,12 @@ app.use(cors());
 // === OTHER MIDDLEWARE ===
 app.use(bodyParser.json());
 
-// Serve static files from the 'frontend' folder
-// path.join(__dirname, '..', 'frontend') is correct for server.js in backend/
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
-
-
 // === DATABASE CONFIGURATION ===
-// FIX: Added SSL configuration required for Heroku/Render PostgreSQL connections.
+// CRITICAL FIX: Added SSL configuration for Heroku/Render PostgreSQL connections.
 const db = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: { 
-        rejectUnauthorized: false // CRITICAL FIX for Heroku/Render SSL
+        rejectUnauthorized: false 
     } 
 });
 
@@ -44,7 +39,6 @@ const testConnection = async () => {
         console.log("✅ Connected to PostgreSQL!");
         client.release();
     } catch (err) {
-        // This handles the SSL error
         console.error("❌ Database Connection Error:", err.message);
         process.exit(1); 
     }
@@ -56,14 +50,7 @@ const handleDatabaseError = (res, err, operation) => {
     res.status(500).json({ error: "Database error" });
 };
 
-// === ROUTES (All routes now use the /api prefix) ===
-
-// Root Route: Serves index.html
-// This route is essential for serving the main page.
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html')); 
-});
-
+// === ROUTES (API Routes First) ===
 
 // ✅ Countries
 app.get("/api/countries", async (req, res) => {
@@ -79,7 +66,6 @@ app.get("/api/countries", async (req, res) => {
 app.get("/api/branches", async (req, res) => {
     const countryId = req.query.country_id;
     if (!countryId) return res.status(400).json({ error: "country_id is required" });
-
     try {
         const result = await db.query(
           `SELECT b.id, b.name 
@@ -99,7 +85,6 @@ app.get("/api/items", async (req, res) => {
     const { country_id, branch_id } = req.query;
     if (!country_id || !branch_id)
         return res.status(400).json({ error: "country_id and branch_id are required" });
-
     try {
         const result = await db.query(
           `SELECT fi.id, fi.name, fi.serving_size, fi.calories, fi.total_fat, fi.saturated_fat,
@@ -119,7 +104,6 @@ app.get("/api/items", async (req, res) => {
 app.get("/api/item", async (req, res) => {
     const id = req.query.id;
     if (!id) return res.status(400).json({ error: "id is required" });
-
     try {
         const result = await db.query("SELECT * FROM food_items WHERE id = $1", [id]);
         if (result.rows.length === 0) return res.status(404).json({ error: "Item not found" });
@@ -138,13 +122,11 @@ app.post("/api/items", async (req, res) => {
         trans_fat, cholesterol, sodium, carbohydrates, sugars, protein
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
       RETURNING id`; 
-
     const values = [
         data.branch_location_id, data.name, data.serving_size, data.calories,
         data.total_fat, data.saturated_fat, data.trans_fat,
         data.cholesterol, data.sodium, data.carbohydrates, data.sugars, data.protein,
     ];
-
     try {
         const result = await db.query(sql, values);
         res.status(201).json({ id: result.rows[0].id }); 
@@ -164,16 +146,29 @@ app.delete("/api/items/:id", async (req, res) => {
     }
 });
 
+
+// === STATIC FILE HANDLER (AFTER API) ===
+// Serve static files (CSS/JS/images) from the 'frontend' folder
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
+// Root Route: Explicitly serves index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html')); 
+});
+
+// Wildcard Route: Catches other specific HTML files (like item.html)
+// This ensures that deep links like /item.html also resolve correctly.
+app.get('/*.html', (req, res) => {
+    const fileName = req.originalUrl.split('/').pop();
+    res.sendFile(path.join(__dirname, '..', 'frontend', fileName));
+});
+
 // === START SERVER ===
 const PORT = process.env.PORT || 3000;
-// Set HOST to 0.0.0.0 to listen on all public interfaces
 const HOST = '0.0.0.0'; 
 
 const startServer = async () => {
-    // Test connection before starting server
     await testConnection(); 
-    
-    // Pass both PORT and HOST to app.listen()
     app.listen(PORT, HOST, () => {
         console.log(`🚀 Server running at http://${HOST}:${PORT}`);
     });
