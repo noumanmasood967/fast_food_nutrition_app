@@ -4,10 +4,11 @@
   "type": "module",
   "main": "backend/server.js", 
   "scripts": {
-    "build:css": "tailwindcss -i ./src/input.css -o ../frontend/main.css",
-    "watch:css": "tailwindcss -i ./src/input.css -o ../frontend/main.css --watch",
+    "build:css": "tailwindcss -i ./src/input.css -o ./frontend/main.css",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./frontend/main.css --watch",
     "start:server": "node backend/server.js",
     "dev": "concurrently \"npm run watch:css\" \"npm run start:server\"",
+    "build": "npm run build:css", 
     "start": "node backend/server.js"
   },
   "dependencies": {
