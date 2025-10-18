@@ -4,7 +4,7 @@
   "type": "module",
   "main": "backend/server.js", 
   "scripts": {
-    "build:css": "tailwindcss -i ./backend/src/input.css -o ./frontend/main.css --config ./tailwind.config.js --minify",
+   "build:css": "tailwindcss -i ./backend/src/input.css -o ./frontend/main.css --config ./tailwind.config.js --minify",
     "watch:css": "tailwindcss -i ./frontend/input.css -o ./frontend/main.css --watch",
     "build": "npm run build:css", 
     "start": "node backend/server.js"
