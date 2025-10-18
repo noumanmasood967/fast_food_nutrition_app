@@ -9,6 +9,6 @@
   # When the frontend tries to access /api/endpoint...
   from = "/api/*"
   # ...redirect it to the backend on Heroku
-  to = "https://fastfoodnutritionn.herokuapp.com/api/:splat"
+  to = "https://fastfoodnutritionn-f422e84cea48.herokuapp.com/api/:splat"
   status = 200
   force = true
