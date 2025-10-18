@@ -6,8 +6,9 @@
   "scripts": {
     "build:css": "tailwindcss -i ./src/input.css -o ../frontend/main.css",
     "watch:css": "tailwindcss -i ./src/input.css -o ../frontend/main.css --watch",
-    "start:server": "node server.js",
-    "dev": "concurrently \"npm run watch:css\" \"npm run start:server\""
+    "start:server": "node server.js", 
+    "dev": "concurrently \"npm run watch:css\" \"npm run start:server\"",
+    "start": "node server.js"  
   },
   "dependencies": {
     "@noble/secp256k1": "^2.1.0",
