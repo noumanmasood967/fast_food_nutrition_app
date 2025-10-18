@@ -6,61 +6,152 @@
   <title>Food Item Details</title>
   <link rel="stylesheet" href="hello.css">
   <link rel="stylesheet" href="main.css">
-</head>
-<body class="min-h-screen flex flex-col items-center justify-center font-sans text-gray-800 px-4 py-10">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+<body class="text-gray-800 px-4 py-6">
 
-  <button id="backBtn"
-    class="absolute top-6 left-6 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-full shadow-md hover:from-blue-700 hover:to-blue-600 transition duration-300">
-    ← Back
-  </button>
+  <!-- Header with Back Button -->
+  <header class="flex items-center mb-6">
+    <button id="backBtn"
+      class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-full shadow-md hover:from-blue-700 hover:to-blue-600 transition duration-300">
+      <i class="fas fa-arrow-left text-sm"></i>
+    </button>
+    <h1 class="text-xl font-bold text-blue-800 ml-4">Nutrition Details</h1>
+  </header>
 
- <div class="w-full max-w-3xl glass-card rounded-3xl shadow-xl p-10">
-  <h1 id="itemName" class="text-4xl md:text-5xl font-extrabold text-center text-blue-700 mb-10 tracking-tight"></h1>
+  <!-- Main Content -->
+  <main class="w-full max-w-3xl mx-auto">
+    <!-- Food Name -->
+    <div class="glass-card rounded-2xl shadow-lg p-6 mb-6 text-center">
+      <h1 id="itemName" class="text-2xl md:text-3xl font-bold text-blue-700 mb-2"></h1>
+      <div class="flex justify-center items-center text-gray-600">
+        <i class="fas fa-weight text-sm mr-2"></i>
+        <span id="serving_size" class="text-sm"></span>
+      </div>
+    </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-yellow-100 to-yellow-50">
-      <span class="block text-sm font-semibold text-gray-600">Serving Size</span>
-      <span id="serving_size" class="text-lg font-bold text-gray-900"></span>
+    <!-- Nutrition Grid -->
+    <div class="grid grid-cols-2 gap-3 mb-6">
+      <!-- Calories -->
+      <div class="nutrition-card p-4 rounded-xl shadow bg-gradient-to-r from-orange-100 to-orange-50">
+        <div class="flex items-center mb-2">
+          <i class="fas fa-fire text-orange-500 text-sm mr-2"></i>
+          <span class="text-xs font-semibold text-gray-600">Calories</span>
+        </div>
+        <span id="calories" class="text-lg font-bold text-gray-900 block"></span>
+        <span class="text-xs text-gray-500">kcal</span>
+      </div>
+      
+      <!-- Protein -->
+      <div class="nutrition-card p-4 rounded-xl shadow bg-gradient-to-r from-green-100 to-green-50">
+        <div class="flex items-center mb-2">
+          <i class="fas fa-dumbbell text-green-500 text-sm mr-2"></i>
+          <span class="text-xs font-semibold text-gray-600">Protein</span>
+        </div>
+        <span id="protein" class="text-lg font-bold text-gray-900 block"></span>
+        <span class="text-xs text-gray-500">g</span>
+      </div>
+      
+      <!-- Total Fat -->
+      <div class="nutrition-card p-4 rounded-xl shadow bg-gradient-to-r from-red-100 to-red-50">
+        <div class="flex items-center mb-2">
+          <i class="fas fa-oil-can text-red-500 text-sm mr-2"></i>
+          <span class="text-xs font-semibold text-gray-600">Total Fat</span>
+        </div>
+        <span id="total_fat" class="text-lg font-bold text-gray-900 block"></span>
+        <span class="text-xs text-gray-500">g</span>
+      </div>
+      
+      <!-- Carbs -->
+      <div class="nutrition-card p-4 rounded-xl shadow bg-gradient-to-r from-teal-100 to-teal-50">
+        <div class="flex items-center mb-2">
+          <i class="fas fa-bread-slice text-teal-500 text-sm mr-2"></i>
+          <span class="text-xs font-semibold text-gray-600">Carbs</span>
+        </div>
+        <span id="carbohydrates" class="text-lg font-bold text-gray-900 block"></span>
+        <span class="text-xs text-gray-500">g</span>
+      </div>
     </div>
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-orange-100 to-orange-50">
-      <span class="block text-sm font-semibold text-gray-600">Calories (kcal)</span>
-      <span id="calories" class="text-lg font-bold text-gray-900"></span>
-    </div>
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-red-100 to-red-50">
-      <span class="block text-sm font-semibold text-gray-600">Total Fat (g)</span>
-      <span id="total_fat" class="text-lg font-bold text-gray-900"></span>
-    </div>
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-red-200 to-red-100">
-      <span class="block text-sm font-semibold text-gray-600">Saturated Fat (g)</span>
-      <span id="saturated_fat" class="text-lg font-bold text-gray-900"></span>
-    </div>
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-pink-100 to-pink-50">
-      <span class="block text-sm font-semibold text-gray-600">Trans Fat (g)</span>
-      <span id="trans_fat" class="text-lg font-bold text-gray-900"></span>
-    </div>
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-amber-100 to-amber-50">
-      <span class="block text-sm font-semibold text-gray-600">Cholesterol (g)</span>
-      <span id="cholesterol" class="text-lg font-bold text-gray-900"></span>
-    </div>
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-blue-100 to-blue-50">
-      <span class="block text-sm font-semibold text-gray-600">Sodium (g)</span>
-      <span id="sodium" class="text-lg font-bold text-gray-900"></span>
-    </div>
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-teal-100 to-teal-50">
-      <span class="block text-sm font-semibold text-gray-600">Carbohydrates (g)</span>
-      <span id="carbohydrates" class="text-lg font-bold text-gray-900"></span>
-    </div>
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-pink-200 to-pink-100">
-      <span class="block text-sm font-semibold text-gray-600">Sugars (g)</span>
-      <span id="sugars" class="text-lg font-bold text-gray-900"></span>
-    </div>
-    <div class="p-4 rounded-xl shadow bg-gradient-to-r from-green-100 to-green-50">
-      <span class="block text-sm font-semibold text-gray-600">Protein (g)</span>
-      <span id="protein" class="text-lg font-bold text-gray-900"></span>
-    </div>
-  </div>
-</div>
 
+    <!-- Detailed Nutrition -->
+    <div class="glass-card rounded-2xl shadow-lg p-5 mb-6">
+      <h2 class="text-lg font-bold text-blue-700 mb-4 flex items-center">
+        <i class="fas fa-chart-bar text-blue-500 mr-2"></i>
+        Detailed Nutrition
+      </h2>
+      
+      <div class="space-y-3">
+        <!-- Saturated Fat -->
+        <div class="flex justify-between items-center py-2 border-b border-gray-100">
+          <div class="flex items-center">
+            <i class="fas fa-weight text-red-400 text-sm mr-3"></i>
+            <span class="text-sm font-medium text-gray-700">Saturated Fat</span>
+          </div>
+          <div class="text-right">
+            <span id="saturated_fat" class="text-sm font-bold text-gray-900"></span>
+            <span class="text-xs text-gray-500 ml-1">g</span>
+          </div>
+        </div>
+        
+        <!-- Trans Fat -->
+        <div class="flex justify-between items-center py-2 border-b border-gray-100">
+          <div class="flex items-center">
+            <i class="fas fa-exchange-alt text-pink-400 text-sm mr-3"></i>
+            <span class="text-sm font-medium text-gray-700">Trans Fat</span>
+          </div>
+          <div class="text-right">
+            <span id="trans_fat" class="text-sm font-bold text-gray-900"></span>
+            <span class="text-xs text-gray-500 ml-1">g</span>
+          </div>
+        </div>
+        
+        <!-- Cholesterol -->
+        <div class="flex justify-between items-center py-2 border-b border-gray-100">
+          <div class="flex items-center">
+            <i class="fas fa-heartbeat text-amber-500 text-sm mr-3"></i>
+            <span class="text-sm font-medium text-gray-700">Cholesterol</span>
+          </div>
+          <div class="text-right">
+            <span id="cholesterol" class="text-sm font-bold text-gray-900"></span>
+            <span class="text-xs text-gray-500 ml-1">mg</span>
+          </div>
+        </div>
+        
+        <!-- Sodium -->
+        <div class="flex justify-between items-center py-2 border-b border-gray-100">
+          <div class="flex items-center">
+            <i class="fas fa-cube text-blue-400 text-sm mr-3"></i>
+            <span class="text-sm font-medium text-gray-700">Sodium</span>
+          </div>
+          <div class="text-right">
+            <span id="sodium" class="text-sm font-bold text-gray-900"></span>
+            <span class="text-xs text-gray-500 ml-1">mg</span>
+          </div>
+        </div>
+        
+        <!-- Sugars -->
+        <div class="flex justify-between items-center py-2">
+          <div class="flex items-center">
+            <i class="fas fa-candy-cane text-pink-500 text-sm mr-3"></i>
+            <span class="text-sm font-medium text-gray-700">Sugars</span>
+          </div>
+          <div class="text-right">
+            <span id="sugars" class="text-sm font-bold text-gray-900"></span>
+            <span class="text-xs text-gray-500 ml-1">g</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Value Info -->
+    <div class="glass-card rounded-2xl shadow-lg p-5 text-center">
+      <i class="fas fa-info-circle text-blue-500 text-xl mb-2"></i>
+      <h3 class="text-md font-bold text-blue-700 mb-1">Daily Value Reference</h3>
+      <p class="text-xs text-gray-600">
+        Based on a 2,000 calorie diet. Individual needs may vary.
+      </p>
+    </div>
+  </main>
 <script src="item.js"></script>
 </body>
 </html>
