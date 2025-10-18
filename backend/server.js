@@ -24,6 +24,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files from the 'frontend' folder
+// path.join(__dirname, '..', 'frontend') is correct for server.js in backend/
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 
@@ -43,7 +44,7 @@ const testConnection = async () => {
         console.log("✅ Connected to PostgreSQL!");
         client.release();
     } catch (err) {
-        // Log the specific error message provided by the database (like the SSL error)
+        // This handles the SSL error
         console.error("❌ Database Connection Error:", err.message);
         process.exit(1); 
     }
@@ -58,10 +59,14 @@ const handleDatabaseError = (res, err, operation) => {
 // === ROUTES (All routes now use the /api prefix) ===
 
 // Root Route: Serves index.html
+// This route is essential for serving the main page.
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html')); 
+});
 
 
 // ✅ Countries
-app.get("/api/countries", async (req, res) => { // ADDED /api
+app.get("/api/countries", async (req, res) => {
     try {
         const result = await db.query("SELECT id, name FROM countries");
         res.json(result.rows);
@@ -71,7 +76,7 @@ app.get("/api/countries", async (req, res) => { // ADDED /api
 });
 
 // ✅ Branches
-app.get("/api/branches", async (req, res) => { // ADDED /api
+app.get("/api/branches", async (req, res) => {
     const countryId = req.query.country_id;
     if (!countryId) return res.status(400).json({ error: "country_id is required" });
 
@@ -90,7 +95,7 @@ app.get("/api/branches", async (req, res) => { // ADDED /api
 });
 
 // ✅ Food Items
-app.get("/api/items", async (req, res) => { // ADDED /api
+app.get("/api/items", async (req, res) => {
     const { country_id, branch_id } = req.query;
     if (!country_id || !branch_id)
         return res.status(400).json({ error: "country_id and branch_id are required" });
@@ -111,7 +116,7 @@ app.get("/api/items", async (req, res) => { // ADDED /api
 });
 
 // ✅ Single Food Item
-app.get("/api/item", async (req, res) => { // ADDED /api
+app.get("/api/item", async (req, res) => {
     const id = req.query.id;
     if (!id) return res.status(400).json({ error: "id is required" });
 
@@ -125,7 +130,7 @@ app.get("/api/item", async (req, res) => { // ADDED /api
 });
 
 // ✅ Add Food Item
-app.post("/api/items", async (req, res) => { // ADDED /api
+app.post("/api/items", async (req, res) => {
     const data = req.body;
     const sql = `
       INSERT INTO food_items (
@@ -149,7 +154,7 @@ app.post("/api/items", async (req, res) => { // ADDED /api
 });
 
 // ✅ Delete Food Item
-app.delete("/api/items/:id", async (req, res) => { // ADDED /api
+app.delete("/api/items/:id", async (req, res) => {
     const { id } = req.params;
     try {
         await db.query("DELETE FROM food_items WHERE id = $1", [id]);
