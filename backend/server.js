@@ -167,6 +167,14 @@ app.get('/health', (req, res) => {
     // This endpoint just returns a quick success status
     res.status(200).send('API is healthy');
 });
+app.get("/robots.txt", (req, res) => {
+  res.type("text/plain");
+  res.send(`User-agent: *
+Allow: /
+
+Sitemap: https://fastfoodinsight.com/sitemap.xml
+`);
+});
 // === START SERVER ===
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0'; 
