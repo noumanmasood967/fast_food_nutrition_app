@@ -1,1 +1,5 @@
+# API Proxy Rule (Existing)
 /api/* https://fastfoodnutritionn-f422e84cea48.herokuapp.com/api/:splat 200
+
+# GSC Fix: Guarantee instantaneous robots.txt access
+/robots.txt /robots.txt 200!
