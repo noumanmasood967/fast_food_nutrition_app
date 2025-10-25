@@ -1,4 +1,4 @@
-const backendUrl = "";
+const backendUrl = "https://fastfoodnutritionn-f422e84cea48.herokuapp.com";
 
     const countrySelect = document.getElementById("countrySelect");
     const branchSection = document.getElementById("branchSection");

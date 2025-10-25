@@ -1,4 +1,4 @@
-const backendUrl = "";
+const backendUrl = "https://fastfoodnutritionn-f422e84cea48.herokuapp.com";
 
 document.getElementById("backBtn").addEventListener("click", () => {
     window.history.back();
