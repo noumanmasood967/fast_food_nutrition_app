@@ -1,4 +1,4 @@
-:root {
+ :root {
       --primary: #3b82f6;
       --primary-dark: #1d4ed8;
       --secondary: #10b981;
@@ -317,4 +317,102 @@
       0% { transform: translateY(0px); }
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0px); }
+    }
+
+    /* Brand Showcase Styles */
+    .brand-showcase {
+      margin: 3rem 0;
+      padding: 2rem 0;
+    }
+    
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .brand-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .brand-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b);
+    }
+    
+    .brand-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .brand-logo-showcase {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin: 0 auto 1rem;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    
+    .brand-card:hover .brand-logo-showcase {
+      transform: scale(1.1);
+    }
+    
+    .brand-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    
+    .brand-description {
+      font-size: 0.75rem;
+      color: #666;
+      line-height: 1.4;
+    }
+    
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: #6b7280;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .brand-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1rem;
+      }
+      
+      .brand-card {
+        padding: 1rem;
+      }
+      
+      .brand-logo-showcase {
+        width: 60px;
+        height: 60px;
+      }
     }
