@@ -416,3 +416,17 @@
         height: 60px;
       }
     }
+     .logo-gradient {
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+    }
+    
+    .logo-glow {
+      filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
+    }
+    
+    .premium-text {
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
