@@ -16,10 +16,11 @@
   <header class="sticky top-0 bg-white/90 backdrop-blur-md shadow-sm py-3 px-4 flex justify-between items-center z-20 border-b border-gray-100">
     <div class="flex items-center space-x-2">
       <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-      <h1 class="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent select-none">FastFoodFacts</h1>
+      <h1 class="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent select-none">FastFoodInsight</h1>
     </div>
     <nav class="hidden md:flex space-x-4">
       <a href="#service" class="text-gray-600 hover:text-blue-600 font-medium transition">Service</a>
+      <a href="#brands" class="text-gray-600 hover:text-blue-600 font-medium transition">Brands</a>
       <a href="#features" class="text-gray-600 hover:text-blue-600 font-medium transition">Features</a>
       <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium transition">About</a>
     </nav>
@@ -35,7 +36,7 @@
     <div class="flex justify-between items-center mb-6">
       <div class="flex items-center space-x-2">
         <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-        <h1 class="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">FastFoodNutrition Hub</h1>
+        <h1 class="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">FastFoodInsight</h1>
       </div>
       <button id="closeMobileMenu" class="text-gray-600">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,6 +46,7 @@
     </div>
     <nav class="flex flex-col space-y-4">
       <a href="#service" class="text-gray-600 hover:text-blue-600 font-medium text-base transition py-2 border-b border-gray-100">Service</a>
+      <a href="#brands" class="text-gray-600 hover:text-blue-600 font-medium text-base transition py-2 border-b border-gray-100">Brands</a>
       <a href="#features" class="text-gray-600 hover:text-blue-600 font-medium text-base transition py-2 border-b border-gray-100">Features</a>
       <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium text-base transition py-2 border-b border-gray-100">About</a>
     </nav>
@@ -55,7 +57,7 @@
     <!-- Service Section - Enhanced with Better UI -->
     <section id="service" class="service-section section-padding">
       <div class="text-center mb-8">
-        <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4">Facts Behind Every Bite</h1>
+        <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4">Nutrition Insights Behind Every Bite</h1>
         <p class="text-gray-600 max-w-2xl mx-auto">Instantly access nutritional information for thousands of fast food items across different countries and restaurants.</p>
       </div>
 
@@ -84,6 +86,77 @@
             </div>
           </div>
         </div>
+
+        <!-- Brand Showcase Section -->
+        <section id="brands" class="brand-showcase">
+          <h2 class="section-title">Explore Popular Fast Food Brands</h2>
+          <p class="section-subtitle">Get detailed nutritional insights from your favorite fast food restaurants</p>
+          
+          <div class="brand-grid">
+            <!-- McDonald's -->
+            <div class="brand-card" data-brand="mcdonalds">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/1200px-McDonald%27s_Golden_Arches.svg.png" alt="McDonald's" class="brand-logo-showcase">
+              <div class="brand-name">McDonald's</div>
+              <div class="brand-description">World's largest fast food chain with burgers, fries, and more</div>
+            </div>
+            
+            <!-- Pizza Hut -->
+            <div class="brand-card" data-brand="pizzahut">
+              <img src="https://upload.wikimedia.org/wikipedia/sco/thumb/d/d2/Pizza_Hut_logo.svg/1200px-Pizza_Hut_logo.svg.png" alt="Pizza Hut" class="brand-logo-showcase">
+              <div class="brand-name">Pizza Hut</div>
+              <div class="brand-description">Famous for pizzas, pasta, and sides worldwide</div>
+            </div>
+            
+            <!-- KFC -->
+            <div class="brand-card" data-brand="kfc">
+              <img src="https://upload.wikimedia.org/wikipedia/sco/thumb/b/bf/KFC_logo.svg/1200px-KFC_logo.svg.png" alt="KFC" class="brand-logo-showcase">
+              <div class="brand-name">KFC</div>
+              <div class="brand-description">World's most popular chicken restaurant chain</div>
+            </div>
+            
+            <!-- Starbucks -->
+            <div class="brand-card" data-brand="starbucks">
+              <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png" alt="Starbucks" class="brand-logo-showcase">
+              <div class="brand-name">Starbucks</div>
+              <div class="brand-description">Leading coffeehouse chain with beverages and snacks</div>
+            </div>
+            
+            <!-- Wendy's -->
+            <div class="brand-card" data-brand="wendys">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Wendy%27s_full_logo_2012.svg/1200px-Wendy%27s_full_logo_2012.svg.png" alt="Wendy's" class="brand-logo-showcase">
+              <div class="brand-name">Wendy's</div>
+              <div class="brand-description">Known for square hamburgers and fresh ingredients</div>
+            </div>
+            
+            <!-- Domino's -->
+            <div class="brand-card" data-brand="dominos">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Dominos_pizza_logo.svg/1200px-Dominos_pizza_logo.svg.png" alt="Domino's" class="brand-logo-showcase">
+              <div class="brand-name">Domino's</div>
+              <div class="brand-description">Global pizza delivery and carryout chain</div>
+            </div>
+            
+            <!-- Dunkin' -->
+            <div class="brand-card" data-brand="dunkin">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Dunkin%27_logo.svg/1200px-Dunkin%27_logo.svg.png" alt="Dunkin'" class="brand-logo-showcase">
+              <div class="brand-name">Dunkin'</div>
+              <div class="brand-description">Coffee and baked goods chain with global presence</div>
+            </div>
+            
+            <!-- Taco Bell -->
+            <div class="brand-card" data-brand="tacobell">
+              <img src="https://upload.wikimedia.org/wikipedia/sco/thumb/4/4d/Taco_Bell_2016.svg/1200px-Taco_Bell_2016.svg.png" alt="Taco Bell" class="brand-logo-showcase">
+              <div class="brand-name">Taco Bell</div>
+              <div class="brand-description">Mexican-inspired fast food with tacos and burritos</div>
+            </div>
+            
+            <!-- Burger King -->
+            <div class="brand-card" data-brand="burgerking">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Burger_King_logo_%281999%29.svg/2024px-Burger_King_logo_%281999%29.svg.png" alt="Burger King" class="brand-logo-showcase">
+              <div class="brand-name">Burger King</div>
+              <div class="brand-description">Home of the Whopper and flame-grilled burgers</div>
+            </div>
+          </div>
+        </section>
 
         <!-- Step 2: Branch Selection -->
         <div id="branchSection" class="selection-card p-6 md:p-8 hidden">
@@ -142,7 +215,7 @@
     <!-- Features Section -->
     <section id="features" class="bg-white rounded-2xl shadow-xl overflow-hidden">
       <div class="section-padding">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">Why Use Our Service?</h2>
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">Why Use FastFoodInsight?</h2>
         <p class="text-gray-600 text-center max-w-3xl mx-auto mb-8">We provide the most comprehensive fast food nutrition database to help you make informed dietary decisions.</p>
         
         <div class="card-grid">
@@ -200,12 +273,12 @@
     <!-- About Section -->
     <section id="about" class="bg-white rounded-2xl shadow-xl overflow-hidden">
       <div class="section-padding">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">About FastFoodNutrition</h2>
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">About FastFoodInsight</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <h3 class="text-xl font-semibold mb-3">Our Mission</h3>
-            <p class="text-gray-600 mb-4">At FastFoodNutrition, we believe that everyone deserves to make informed decisions about their food choices. Our mission is to provide accurate, comprehensive nutritional information for fast food items worldwide.</p>
+            <p class="text-gray-600 mb-4">At FastFoodInsight, we believe that everyone deserves to make informed decisions about their food choices. Our mission is to provide accurate, comprehensive nutritional information for fast food items worldwide.</p>
             
             <h3 class="text-xl font-semibold mb-3">What We Offer</h3>
             <ul class="text-gray-600 space-y-2 mb-4">
@@ -228,11 +301,13 @@
             <h3 class="text-xl font-semibold mb-3">Nutrition Information We Provide</h3>
             <div class="flex flex-wrap">
               <span class="nutrition-badge"><i class="fas fa-fire"></i> Calories</span>
-              <span class="nutrition-badge"><i class="fas fa-weight"></i> Saturated Fat</span>
-              <span class="nutrition-badge"><i class="fas fa-oil-can"></i> Trans Fat</span>
+              <span class="nutrition-badge"><i class="fas fa-weight"></i> Fat</span>
+              <span class="nutrition-badge"><i class="fas fa-oil-can"></i> Saturated Fat</span>
+              <span class="nutrition-badge"><i class="fas fa-exchange-alt"></i> Trans Fat</span>
               <span class="nutrition-badge"><i class="fas fa-heartbeat"></i> Cholesterol</span>
               <span class="nutrition-badge"><i class="fas fa-cube"></i> Sodium</span>
               <span class="nutrition-badge"><i class="fas fa-bread-slice"></i> Carbohydrates</span>
+              <span class="nutrition-badge"><i class="fas fa-seedling"></i> Fiber</span>
               <span class="nutrition-badge"><i class="fas fa-candy-cane"></i> Sugar</span>
               <span class="nutrition-badge"><i class="fas fa-dumbbell"></i> Protein</span>
             </div>
@@ -248,7 +323,7 @@
         <div class="md:col-span-2">
           <div class="flex items-center space-x-2 mb-3">
             <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-            <h2 class="text-lg font-bold">FastFoodNutrition</h2>
+            <h2 class="text-lg font-bold">FastFoodInsight</h2>
           </div>
           <p class="text-gray-400 text-sm mb-4 max-w-md">Empowering individuals to make informed dietary decisions through comprehensive fast food nutrition information.</p>
         </div>
@@ -257,6 +332,7 @@
           <h3 class="text-base font-semibold mb-2">Quick Links</h3>
           <ul class="space-y-1">
             <li><a href="#service" class="text-gray-400 hover:text-white transition text-sm">Service</a></li>
+            <li><a href="#brands" class="text-gray-400 hover:text-white transition text-sm">Brands</a></li>
             <li><a href="#features" class="text-gray-400 hover:text-white transition text-sm">Features</a></li>
             <li><a href="#about" class="text-gray-400 hover:text-white transition text-sm">About</a></li>
           </ul>
@@ -264,7 +340,7 @@
       </div>
       
       <div class="mt-6 pt-6 border-t border-gray-800 text-center text-gray-400 text-xs">
-        <p>© 2023 FastFoodNutrition. All rights reserved. Made with <i class="fas fa-heart text-red-500"></i> for health-conscious food lovers.</p>
+        <p>© 2025 FastFoodInsight. All rights reserved. Made with <i class="fas fa-heart text-red-500"></i> for health-conscious food lovers.</p>
         <p class="mt-1 max-w-2xl mx-auto">All brand names and trademarks are the property of their respective owners. This website is not affiliated with any fast food chains.</p>
       </div>
     </div>
@@ -274,6 +350,7 @@
   <div id="backToTop" class="back-to-top">
     <i class="fas fa-chevron-up"></i>
   </div>
+
 
   <script src="hello.js"></script>
 </body>
