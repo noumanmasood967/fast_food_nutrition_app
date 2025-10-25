@@ -162,7 +162,11 @@ app.get('/*.html', (req, res) => {
     const fileName = req.originalUrl.split('/').pop();
     res.sendFile(path.join(__dirname, '..', 'frontend', fileName));
 });
-
+// Health Check Endpoint
+app.get('/health', (req, res) => {
+    // This endpoint just returns a quick success status
+    res.status(200).send('API is healthy');
+});
 // === START SERVER ===
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0'; 
