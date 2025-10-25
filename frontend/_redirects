@@ -1,2 +1,4 @@
-/api/* https://fastfoodnutritionn-f422e84cea48.herokuapp.com/api/:splat 200
-
+/robots.txt     /robots.txt     200
+/sitemap.xml    /sitemap.xml    200
+/api/*          https://fastfoodnutritionn-f422e84cea48.herokuapp.com/api/:splat 200
+/*              /index.html     200
